@@ -1,0 +1,27 @@
+<!-- ログインフォーム -->
+<dl>
+  <dt>ユーザ名</dt>
+  <dd><input type="text" [(ngModel)]="userName"></dd>
+  <dt>パスワード</dt>
+  <dd><input type="password" [(ngModel)]="password"></dd>
+</dl>
+<p><button type="button" (click)="onLogin()">ログイン</button></p>
+
+<p *ngIf="loginedMessage">   {{ loginedMessage }}   </p>  <!-- ログイン成功時のメッセージ -->
+<p *ngIf="loginErrorMessage">{{ loginErrorMessage }}</p>  <!-- ログイン失敗時のメッセージ -->
+
+<!-- /products へアクセスするボタン -->
+<p><button type="button" (click)="findProducts()">製品一覧を取得する</button></p>
+<!-- 製品一覧を取得したら表示する -->
+<ul *ngIf="products">
+  <li *ngFor="let product of products">{{ product.id }} : {{ product.name }} : {{ product.price }}</li>
+</ul>
+<!-- 製品一覧の取得に失敗した時のメッセージ -->
+<p *ngIf="findProductsErrorMessage">{{ findProductsErrorMessage }}</p>
+
+<!-- ログアウトボタン -->
+<p><button type="button" (click)="onLogout()">ログアウト</button></p>
+<a routerLink="/" routerLinkActive="active">base</a><br />
+<a routerLink="/guard" routerLinkActive="active">guard</a>
+<router-outlet></router-outlet>
+
