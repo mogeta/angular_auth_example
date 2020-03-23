@@ -1,1 +1,14 @@
-<p>login works!</p>
+<!-- ログインフォーム -->
+<h1>ログインページ</h1>
+<dl>
+  <dt>ユーザ名</dt>
+  <dd><input type="text" [(ngModel)]="userName"></dd>
+  <dt>パスワード</dt>
+  <dd><input type="password" [(ngModel)]="password"></dd>
+</dl>
+<p><button type="button" (click)="onLogin()">ログイン</button></p>
+
+<!-- ログアウトボタン -->
+<p><button type="button" (click)="onLogout()">ログアウト</button></p>
+<p *ngIf="loginedMessage">   {{ loginedMessage }}   </p>  <!-- ログイン成功時のメッセージ -->
+<p *ngIf="loginErrorMessage">{{ loginErrorMessage }}</p>  <!-- ログイン失敗時のメッセージ -->
