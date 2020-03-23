@@ -11,10 +11,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomInterceptor } from './custom-interceptor';
 import { GuardComponent } from './guard/guard.component';
 import {CookieService} from "ngx-cookie-service";
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GuardComponent
+    GuardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
