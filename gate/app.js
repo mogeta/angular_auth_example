@@ -34,10 +34,10 @@ app.use(bodyParser.json());
 
 // CORS を許可する
 app.use((_req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');  // 開発環境で CORS を許可するために入れておいた
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  // res.header('Access-Control-Allow-Origin', 'http://localhost:4200');  // 開発環境で CORS を許可するために入れておいた
+  // res.header('Access-Control-Allow-Credentials', true);
+  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  // res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
 
@@ -78,7 +78,7 @@ passport.deserializeUser((userInfo, done) => {
 });
 // TODO : 2. ログイン用のルーティングを定義する
 // ログイン
-app.post('/login', passport.authenticate('local', { session: true }), (req, res) => {
+app.post('/api/login', passport.authenticate('local', { session: true }), (req, res) => {
   // passport.use('local') で定義した認証処理が成功したらこの関数が実行される
   res.json({ result: 'Login Success' });
 });
@@ -90,7 +90,7 @@ function isLogined(req, res, next) {
     next();
   }
   else {
-    console.error('認証未済', error);
+    console.error('認証未済');
     // Angular の HttpClient でエラーコールバックに反応させるため 401 を返す
     res.status(401);
     // HttpClient のエラー時に取得できるエラーメッセージを返す
@@ -101,7 +101,7 @@ function isLogined(req, res, next) {
 }
 
 // 事前に認証しておかないとデータを取得できない API を作る
-app.get('/products', isLogined, (req, res) => {
+app.get('/api/products', isLogined, (req, res) => {
   res.status(200);
   // 今回はダミーで固定値を返す。実際は DB から取得した値などを返すイメージ
   res.json({
@@ -114,7 +114,7 @@ app.get('/products', isLogined, (req, res) => {
 });
 // TODO : 4. ログアウト用のルーティングを定義する
 // ログアウト
-app.get('/logout', (req, res) => {
+app.get('/api/logout', (req, res) => {
   req.logout();
   res.json({ result: 'Logout Success' });
 });

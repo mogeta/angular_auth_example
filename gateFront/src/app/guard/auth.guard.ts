@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.httpClient.get('http://localhost:8080/products', { withCredentials: true }).toPromise()
+    return this.httpClient.get('/api/products', { withCredentials: true }).toPromise()
       .then((results) => {
         console.log("通信してログイン済み");
         return true;

@@ -8,8 +8,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  public userName: string = '';
-  public password: string = '';
+  public userName: string = 'ExampleUser';
+  public password: string = 'MyPassword';
 
   public loginedMessage: string = '';
   public loginErrorMessage: string = '';
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     this.loginedMessage = this.loginErrorMessage = '';
     // Express サーバに POST 通信する。リクエストボディのプロパティ名は passport.use('local') で定めたモノに合わせる
     // 第3引数の withCredentials はログイン時から全ての通信で必須
-    this.httpClient.post('http://localhost:8080/login', {
+    this.httpClient.post('api/login', {
       userName: this.userName,
       password: this.password
     }, { withCredentials: true }).toPromise()
@@ -35,9 +35,10 @@ export class LoginComponent implements OnInit {
       });
   }
   public onLogout(): void {
-    this.httpClient.get('http://localhost:8080/logout', { withCredentials: true }).toPromise()
+    this.httpClient.get('/api/logout', { withCredentials: true }).toPromise()
       .then((_result) => {
         this.loginedMessage = '';
+        this.router.navigateByUrl('/');
       });
   };
 }

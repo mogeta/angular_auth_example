@@ -1,3 +1,8 @@
 <h1>ガードされてるページ</h1>
 <p>ここはログインしてないとみれないページ
 </p>
+<p><button type="button" (click)="findProducts()">製品一覧を取得する</button></p>
+<!-- 製品一覧を取得したら表示する -->
+<ul *ngIf="products">
+  <li *ngFor="let product of products">{{ product.id }} : {{ product.name }} : {{ product.price }}</li>
+</ul>
