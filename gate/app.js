@@ -40,6 +40,7 @@ app.use((_req, res, next) => {
   // res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
+app.use('/',express.static('../gateFront/dist/gateFront'));
 
 // TODO : 1. Passport 認証処理を定義する
 // 認証ロジック
