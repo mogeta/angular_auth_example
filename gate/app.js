@@ -5,8 +5,12 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
+
+
 // サーバをインスタンス化する
 const app = express();
+
+
 
 // クッキー設定
 app.use(cookieParser());
@@ -77,50 +81,12 @@ passport.serializeUser((userInfo, done) => {
 passport.deserializeUser((userInfo, done) => {
   done(null, userInfo);
 });
-// TODO : 2. ログイン用のルーティングを定義する
-// ログイン
-app.post('/api/login', passport.authenticate('local', { session: true }), (req, res) => {
-  // passport.use('local') で定義した認証処理が成功したらこの関数が実行される
-  res.json({ result: 'Login Success' });
-});
-// TODO : 3. 事前にログイン認証が必要な API のルーティングを定義する
-// 遷移時に認証チェックを行う関数
-function isLogined(req, res, next) {
-  if(req.isAuthenticated()) {
-    // 既に認証済みなら対象の URL へのアクセスを許可する
-    next();
-  }
-  else {
-    console.error('認証未済');
-    // Angular の HttpClient でエラーコールバックに反応させるため 401 を返す
-    res.status(401);
-    // HttpClient のエラー時に取得できるエラーメッセージを返す
-    res.send({
-      error: '認証してください'
-    });
-  }
-}
 
-// 事前に認証しておかないとデータを取得できない API を作る
-app.get('/api/products', isLogined, (req, res) => {
-  res.status(200);
-  // 今回はダミーで固定値を返す。実際は DB から取得した値などを返すイメージ
-  res.json({
-    products: [
-      { id: 1, name: '製品 1', price: 500 },
-      { id: 2, name: '製品 2', price: 800 },
-      { id: 3, name: '製品 3', price: 720 }
-    ]
-  });
-});
-// TODO : 4. ログアウト用のルーティングを定義する
-// ログアウト
-app.get('/api/logout', (req, res) => {
-  req.logout();
-  res.json({ result: 'Logout Success' });
-});
+
 // サーバ起動
 const port = process.env.PORT || 8080;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
+var usersRouter = require('./routes/index');
+app.use('/api', usersRouter);
