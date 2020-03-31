@@ -35,15 +35,6 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(bodyParser.json());
-
-// CORS を許可する
-app.use((_req, res, next) => {
-  // res.header('Access-Control-Allow-Origin', 'http://localhost:4200');  // 開発環境で CORS を許可するために入れておいた
-  // res.header('Access-Control-Allow-Credentials', true);
-  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  // res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  next();
-});
 app.use('/',express.static('../gateFront/dist/gateFront'));
 
 // TODO : 1. Passport 認証処理を定義する
